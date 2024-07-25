@@ -12,13 +12,14 @@
 #include <unistd.h>
 #include "Element.h"
 #include <limits>
+#include "Query.h"
 
 class DatabaseManager {
 public:
     // Constructor
     DatabaseManager(const std::string& dbName);
     
-    int readLevelDB_BD_SEARCH(const std::string& nombrebd, const std::vector<int>& conditions); // Declaración de la función
+    std::vector<Document>  readLevelDB_BD_SEARCH(const std::string& nombrebd, const std::vector<int>& conditions, Query query); // Declaración de la función
 
     // Métodos para leer desde PostgreSQL y escribir en LevelDB
     int readPostgreSQLwriteLevelDB_BD();
@@ -66,8 +67,8 @@ private:
     double yMax;
     double yMin;
 
-    unsigned int snapMax;
-    unsigned int snapMin;
+    unsigned int snapMax = 1267698197;
+    unsigned int snapMin = 1164448681;
 
     unsigned int maxString = std::numeric_limits<unsigned int>::max();
     unsigned int minString = 0;

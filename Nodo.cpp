@@ -42,7 +42,7 @@ void STILTNode::stilt_insert(int key, int id, STILTNode* node) {
             STILTNode *hoja = new STILTNode();
             hoja->setPath(path);
             hoja->length = 32 - leadingZeros;
-            hoja->id = id;
+            hoja->id.push_back(id);
             // Imprimir información sobre el nodo actual
             // std::cout << "Node ID: " << node->id << ", Path: " << path << " Tamano: " << hoja->length << std::endl;
 
@@ -60,7 +60,13 @@ void STILTNode::stilt_insert(int key, int id, STILTNode* node) {
         {
             acumulador = acumulador + edge->length;
             path = path - edge->path;
-            edge = edge->pick_edge2(edge, path, acumulador);
+            if(path == 0){
+              edge->id.push_back(id);
+              return;
+            }
+            else{
+              edge = edge->pick_edge2(edge, path, acumulador);
+            }                  
         }
         else
         {
@@ -76,7 +82,7 @@ void STILTNode::stilt_insert(int key, int id, STILTNode* node) {
             hojaD->path = calcularNodo( leadingZeros,edge->path);
             hojaD->length = oldLength - edge->length;
             hojaD->id = edge->id;
-            edge->id = 0;
+            edge->id.clear();
             //std::cout << "Node xxxcxID: " << path << ", Path: " << hojaD->path << " Tamano: " << 32- (leadingZeros+1) << std::endl;
 
             if(getBit(hojaD->path, 32- (leadingZeros+1))==1){
@@ -136,7 +142,7 @@ void STILTNode::print_nodes(const STILTNode* node, int entero) const {
     if (node) {
 
         // Imprimir información sobre el nodo actual
-        std::cout << "Node ID: " << node->id << ", Path: " << node->path << " Tamano: " << node->length << " binario:" << std::bitset<32>(node->path).to_string() << std::endl;
+        std::cout << "Node ID: " << node->id[0] << ", Path: " << node->path << " Tamano: " << node->length << " binario:" << std::bitset<32>(node->path).to_string() << std::endl;
 
         // Llamar recursivamente a la función para imprimir los nodos hijos
         print_nodes(node->leftChild, 0);

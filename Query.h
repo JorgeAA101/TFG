@@ -59,7 +59,7 @@ public:
      void normalizeX( double minEntero,  double maxEntero);
      void normalizeY( double minEntero,  double maxEntero);
 
-private:
+
     std::vector<std::string> text;
     std::vector<unsigned int> textNorm;
     std::vector<double> x;

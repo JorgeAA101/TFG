@@ -6,7 +6,7 @@
 
 class STILTNode {
 public:
-    int id;
+    std::vector<int> id = {};
     unsigned int path;
     STILTNode* leftChild;
     STILTNode* rightChild;
